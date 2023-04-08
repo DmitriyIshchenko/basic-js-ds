@@ -15,7 +15,7 @@ class BinarySearchTree {
     return this._root;
   }
 
-  setRoot(node) {
+  _setRoot(node) {
     this._root = node;
   }
 
@@ -29,7 +29,7 @@ class BinarySearchTree {
   }
 
   add(data) {
-    this.setRoot(this._addNode(this.root(), data));
+    this._setRoot(this._addNode(this.root(), data));
   }
 
   _searchNode(node, data) {
@@ -49,9 +49,55 @@ class BinarySearchTree {
     return this._searchNode(this.root(), data) || null;
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  _removeNode(node, data) {
+    if (!node) return;
+
+    // search for target node
+    if (data < node.data) {
+      node.left = this._removeNode(node.left, data);
+      return node;
+    }
+    if (data > node.data) {
+      node.right = this._removeNode(node.right, data);
+      return node;
+    }
+
+    // when found
+
+    // leaf case
+    if (!node.left && !node.right) return null;
+
+    // there is only right child
+    if (!node.left) {
+      node = node.right;
+      return node;
+    }
+
+    // there is only left child
+    if (!node.right) {
+      node = node.left;
+      return node;
+    }
+
+    // there are both children
+
+    /* for the tree to be correct,
+    we need to replace the value of the node to be deleted
+    with the max value from the left branch
+    or the min value from the right branch */
+
+    let maxLeft = node.left;
+    while (maxLeft.right) {
+      maxLeft = maxLeft.right;
+    }
+
+    node.data = maxLeft.data; // copy max value to node
+    node.left = this._removeNode(node.left, maxLeft.data); // delete original max node
+    return node; // return updated node;
+  }
+
+  remove(data) {
+    this._setRoot(this._removeNode(this.root(), data));
   }
 
   min() {
@@ -84,6 +130,9 @@ class BinarySearchTree {
 // bst.add(3);
 
 // console.log(bst.has(1));
+// bst.remove(1);
+// console.log(bst.has(1));
+
 module.exports = {
   BinarySearchTree,
 };
