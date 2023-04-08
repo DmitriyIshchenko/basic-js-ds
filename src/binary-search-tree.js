@@ -86,13 +86,9 @@ class BinarySearchTree {
     with the max value from the left branch
     or the min value from the right branch */
 
-    let maxLeft = node.left;
-    while (maxLeft.right) {
-      maxLeft = maxLeft.right;
-    }
-
-    node.data = maxLeft.data; // copy max value to node
-    node.left = this._removeNode(node.left, maxLeft.data); // delete original max node
+    let maxLeft = this.max(node.left);
+    node.data = maxLeft; // copy max value to node
+    node.left = this._removeNode(node.left, maxLeft); // delete original max node
     return node; // return updated node;
   }
 
@@ -100,22 +96,22 @@ class BinarySearchTree {
     this._setRoot(this._removeNode(this.root(), data));
   }
 
-  min() {
-    if (!this.root()) return null;
+  min(node = this.root()) {
+    if (!node) return null;
 
     // similar to linked list
     // go to the furthest to the left node - min value
-    let current = this.root();
+    let current = node;
     while (current.left) {
       current = current.left;
     }
     return current.data;
   }
 
-  max() {
-    if (!this.root()) return null;
+  max(node = this.root()) {
+    if (!node) return null;
 
-    let current = this.root();
+    let current = node;
     // go to the furthest to the right node - max value
     while (current.right) {
       current = current.right;
