@@ -48,13 +48,26 @@ class BinarySearchTree {
   }
 
   min() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    if (!this.root()) return null;
+
+    // similar to linked list
+    // go to the furthest to the left node - min value
+    let current = this.root();
+    while (current.left) {
+      current = current.left;
+    }
+    return current.data;
   }
 
   max() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    if (!this.root()) return null;
+
+    let current = this.root();
+    // go to the furthest to the right node - max value
+    while (current.right) {
+      current = current.right;
+    }
+    return current.data;
   }
 }
 
