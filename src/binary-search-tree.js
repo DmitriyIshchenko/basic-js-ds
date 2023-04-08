@@ -32,14 +32,21 @@ class BinarySearchTree {
     this.setRoot(this._addNode(this.root(), data));
   }
 
-  has(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  _searchNode(node, data) {
+    if (!node) return false;
+
+    if (data === node.data) return node;
+
+    if (data < node.data) return this._searchNode(node.left, data);
+    if (data > node.data) return this._searchNode(node.right, data);
   }
 
-  find(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  has(data) {
+    return Boolean(this._searchNode(this.root(), data));
+  }
+
+  find(data) {
+    return this._searchNode(this.root(), data) || null;
   }
 
   remove(/* data */) {
@@ -75,6 +82,8 @@ class BinarySearchTree {
 // bst.add(1);
 // bst.add(2);
 // bst.add(3);
+
+// console.log(bst.has(1));
 module.exports = {
   BinarySearchTree,
 };
