@@ -120,15 +120,6 @@ class BinarySearchTree {
   }
 }
 
-// let bst = new BinarySearchTree();
-// bst.add(1);
-// bst.add(2);
-// bst.add(3);
-
-// console.log(bst.has(1));
-// bst.remove(1);
-// console.log(bst.has(1));
-
 module.exports = {
   BinarySearchTree,
 };
